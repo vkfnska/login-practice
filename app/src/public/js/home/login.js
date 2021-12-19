@@ -1,5 +1,3 @@
-const { application } = require("express");
-
 const id = document.querySelector("#id"),
   psword = document.querySelector("#psword"),
   loginBtn = document.querySelector("button");
@@ -13,13 +11,18 @@ function login() {
     };
 
     fetch("/login", {
-        mothod: "POST",
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(req)
     })
-
-    console.log(req);
-    console.log(JSON.stringify(req));
+        .then((res) => res.json())
+        .then((res) => {
+            if (res.success) {
+                location.href = "/";
+            } else {
+                alert(res.msg);
+            };
+        })
 }
